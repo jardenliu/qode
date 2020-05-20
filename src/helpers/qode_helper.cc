@@ -42,7 +42,7 @@ std::string wideCharToMultiByte(wchar_t* pWCStrKey)
     char* pCStrKey = new char[pSize+1];
     WideCharToMultiByte(CP_OEMCP, 0, pWCStrKey, wcslen(pWCStrKey), pCStrKey, pSize, NULL, NULL);
     pCStrKey[pSize] = '\0';
-    string pKey = pCStrKey;
+    std::string pKey = pCStrKey;
     return pKey;
 }
 
