@@ -39,12 +39,9 @@ namespace qodeHelper {
 std::string wideCharToMultiByte(wchar_t* pWCStrKey)
 {
     int pSize = WideCharToMultiByte(CP_OEMCP, 0, pWCStrKey, wcslen(pWCStrKey), NULL, 0, NULL, NULL);
-    printf("printf content start3: %ls\n", pSize);
     char* pCStrKey = new char[pSize+1];
-    printf("printf content start4: %ls\n", pCStrKey);
     WideCharToMultiByte(CP_OEMCP, 0, pWCStrKey, wcslen(pWCStrKey), pCStrKey, pSize, NULL, NULL);
     pCStrKey[pSize] = '\0';
-    printf("printf content start5: %ls\n", pCStrKey);
     std::string pKey = pCStrKey;
     return pKey;
 }
@@ -52,9 +49,7 @@ std::string wideCharToMultiByte(wchar_t* pWCStrKey)
 std::string getExecutablePath() {
    WCHAR rawPathName[MAX_PATH];
    GetModuleFileNameW(NULL, rawPathName, MAX_PATH);
-   printf("printf content start1: %ls\n", rawPathName);
    std::string executablePath = wideCharToMultiByte(rawPathName);
-   printf("printf content start2: %ls\n", executablePath);
    return executablePath;
 }
 
