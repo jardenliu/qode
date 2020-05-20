@@ -36,10 +36,21 @@ namespace qodeHelper {
 
 #if defined(_WIN32)
 
+std::string wideCharToMultiByte(wchar_t* pWCStrKey)
+{
+    int pSize = WideCharToMultiByte(CP_OEMCP, 0, pWCStrKey, wcslen(pWCStrKey), NULL, 0, NULL, NULL);
+    char* pCStrKey = new char[pSize+1];
+    WideCharToMultiByte(CP_OEMCP, 0, pWCStrKey, wcslen(pWCStrKey), pCStrKey, pSize, NULL, NULL);
+    pCStrKey[pSize] = '\0';
+    string pKey = pCStrKey;
+    return pKey;
+}
+
 std::string getExecutablePath() {
-   char rawPathName[MAX_PATH];
-   GetModuleFileNameA(NULL, rawPathName, MAX_PATH);
-   return std::string(rawPathName);
+   WCHAR rawPathName[MAX_PATH];
+   GetModuleFileNameW(NULL, rawPathName, MAX_PATH);
+   std::string executablePath = wideCharToMultiByte(rawPathName);
+   return executablePath;
 }
 
 std::string getExecutableDir() {
